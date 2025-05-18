@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event RSVP Card</title>
+    <!-- Using Tailwind CSS for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts for typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        /* Base styles */
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #f5f7fa;
+        }
+        
+        /* Card styling with gradient background and shadow */
+        .card {
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, #ffffff 0%, #f9f9f9 100%);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        /* Hover effect for card */
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+        
+        /* Title font styling */
+        .title {
+            font-family: 'Playfair Display', serif;
+        }
+        
+        /* Button transition effects */
+        .btn {
+            transition: all 0.3s ease;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+        
+        /* Button states */
+        .btn-selected {
+            background-color: #4F46E5;
+            color: white;
+        }
+        
+        .btn-not-selected {
+            background-color: white;
+            color: #4F46E5;
+            border: 1px solid #4F46E5;
+        }
+        
+        /* Success message animation */
+        .success-message {
+            opacity: 0;
+            height: 0;
+            transition: all 0.5s ease;
+        }
+        
+        .success-message.show {
+            opacity: 1;
+            height: auto;
+            padding: 1rem;
+        }
+        
+        /* Decorative background elements */
+        .decorative-element {
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(79, 70, 229, 0.1) 0%, rgba(79, 70, 229, 0.05) 100%);
+            z-index: 0;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-4 sm:p-6">
+    <!-- Decorative background elements -->
+    <div class="decorative-element top-0 right-0"></div>
+    <div class="decorative-element bottom-0 left-0"></div>
+    
+    <!-- Main RSVP card container -->
+    <div class="card w-full max-w-md relative z-10">
+        <!-- Decorative colored header border -->
+        <div class="bg-indigo-600 h-2"></div>
+        
+        <!-- Card Content -->
+        <div class="p-6 sm:p-8">
+            <h1 class="title text-3xl font-bold text-center text-gray-800 mb-2">You're Invited!</h1>
+            <p class="text-center text-gray-600 mb-6">Please RSVP for our upcoming event</p>
+            
+            <div class="space-y-6">
+                <!-- Event Details Section -->
+                <div class="bg-indigo-50 p-4 rounded-lg">
+                    <!-- Date information -->
+                    <div class="flex items-center mb-3">
+                        <svg class="w-5 h-5 text-indigo-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                        </svg>
+                        <h3 class="font-semibold text-gray-800">Saturday, December 31, 2023</h3>
+                    </div>
+                    
+                    <!-- Time information -->
+                    <div class="flex items-center mb-3">
+                        <svg class="w-5 h-5 text-indigo-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        <h3 class="font-semibold text-gray-800">7:00 PM - 11:00 PM</h3>
+                    </div>
+                    
+                    <!-- Location information -->
+                    <div class="flex items-center">
+                        <svg class="w-5 h-5 text-indigo-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                        </svg>
+                        <h3 class="font-semibold text-gray-800">Grand Ballroom, City Hotel</h3>
+                    </div>
+                </div>
+                
+                <!-- RSVP Form -->
+                <div id="rsvp-form">
+                    <!-- Name input field -->
+                    <div class="mb-4">
+                        <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Your Name</label>
+                        <input type="text" id="name" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500" placeholder="Enter your full name">
+                    </div>
+                    
+                    <!-- Email input field -->
+                    <div class="mb-4">
+                        <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
+                        <input type="email" id="email" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500" placeholder="Enter your email">
+                    </div>
+                    
+                    <!-- Attendance selection buttons -->
+                    <div class="mb-6">
+                        <p class="block text-sm font-medium text-gray-700 mb-2">Will you be attending?</p>
+                        <div class="grid grid-cols-3 gap-3">
+                            <button id="btn-yes" class="btn btn-not-selected py-2 px-4 rounded-md font-medium text-sm">
+                                Yes, I'll be there!
+                            </button>
+                            <button id="btn-maybe" class="btn btn-not-selected py-2 px-4 rounded-md font-medium text-sm">
+                                Maybe
+                            </button>
+                            <button id="btn-no" class="btn btn-not-selected py-2 px-4 rounded-md font-medium text-sm">
+                                No, I can't make it
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Number of guests dropdown -->
+                    <div class="mb-4">
+                        <label for="guests" class="block text-sm font-medium text-gray-700 mb-1">Number of Guests</label>
+                        <select id="guests" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                            <option value="1">Just me (1)</option>
+                            <option value="2">Me + 1 (2)</option>
+                            <option value="3">Me + 2 (3)</option>
+                            <option value="4">Me + 3 (4)</option>
+                        </select>
+                    </div>
+                    
+                    <!-- Optional message textarea -->
+                    <div class="mb-6">
+                        <label for="message" class="block text-sm font-medium text-gray-700 mb-1">Message (Optional)</label>
+                        <textarea id="message" rows="3" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500" placeholder="Any dietary restrictions or special requests?"></textarea>
+                    </div>
+                    
+                    <!-- Submit button -->
+                    <button id="submit-rsvp" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-3 px-4 rounded-md transition duration-300 ease-in-out transform hover:scale-[1.02]">
+                        Submit RSVP
+                    </button>
+                </div>
+                
+                <!-- Success Message (Hidden by default) -->
+                <div id="success-message" class="success-message bg-green-50 text-green-800 rounded-lg text-center">
+                    <svg class="w-12 h-12 text-green-500 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    <h3 class="text-lg font-semibold">Thank You!</h3>
+                    <p class="text-sm">Your RSVP has been submitted successfully.</p>
+                    <p id="response-summary" class="mt-2 font-medium"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Get all the necessary DOM elements
+        const yesButton = document.getElementById('btn-yes');
+        const maybeButton = document.getElementById('btn-maybe');
+        const noButton = document.getElementById('btn-no');
+        const submitButton = document.getElementById('submit-rsvp');
+        const rsvpForm = document.getElementById('rsvp-form');
+        const successMessage = document.getElementById('success-message');
+        const responseSummary = document.getElementById('response-summary');
+        
+        // Track the selected attendance option
+        let attendance = null;
+        
+        /**
+         * Handle attendance button selection
+         * @param {HTMLElement} button - The button element that was clicked
+         * @param {string} value - The attendance value ('yes', 'maybe', or 'no')
+         */
+        function selectAttendance(button, value) {
+            // Reset all buttons to unselected state
+            [yesButton, maybeButton, noButton].forEach(btn => {
+                btn.classList.remove('btn-selected');
+                btn.classList.add('btn-not-selected');
+            });
+            
+            // Set the clicked button to selected state
+            button.classList.remove('btn-not-selected');
+            button.classList.add('btn-selected');
+            
+            // Update the attendance value
+            attendance = value;
+        }
+        
+        // Add click event listeners to attendance buttons
+        yesButton.addEventListener('click', () => selectAttendance(yesButton, 'yes'));
+        maybeButton.addEventListener('click', () => selectAttendance(maybeButton, 'maybe'));
+        noButton.addEventListener('click', () => selectAttendance(noButton, 'no'));
+        
+        // Handle form submission
+        submitButton.addEventListener('click', () => {
+            // Get form values
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const guests = document.getElementById('guests').value;
+            const message = document.getElementById('message').value.trim();
+            
+            // Form validation
+            if (!name) {
+                alert('Please enter your name.');
+                return;
+            }
+            
+            if (!email) {
+                alert('Please enter your email address.');
+                return;
+            }
+            
+            if (!attendance) {
+                alert('Please select whether you will be attending.');
+                return;
+            }
+            
+            // Create response summary based on attendance selection
+            let summary = '';
+            if (attendance === 'yes') {
+                summary = `${name} will attend with ${guests} guest(s).`;
+            } else if (attendance === 'maybe') {
+                summary = `${name} might attend with ${guests} guest(s).`;
+            } else {
+                summary = `${name} will not be able to attend.`;
+            }
+            
+            // Display success message and hide the form
+            responseSummary.textContent = summary;
+            rsvpForm.style.display = 'none';
+            successMessage.classList.add('show');
+        });
+    </script>
+</body>
+</html>
